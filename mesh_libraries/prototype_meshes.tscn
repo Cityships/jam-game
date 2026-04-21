@@ -1,0 +1,141 @@
+[gd_scene format=3 uid="uid://dqsfnd75tvxh5"]
+
+[ext_resource type="Material" uid="uid://k7njifb0myh0" path="res://mesh_libraries/wall_material.tres" id="1_ullay"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_ee2y0"]
+lightmap_size_hint = Vector2i(14, 21)
+material = ExtResource("1_ullay")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ullay"]
+
+[sub_resource type="PrismMesh" id="PrismMesh_ee2y0"]
+material = ExtResource("1_ullay")
+left_to_right = 1.0
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_ullay"]
+material = ExtResource("1_ullay")
+height = 1.0
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_l6mkf"]
+height = 1.0
+
+[sub_resource type="BoxMesh" id="BoxMesh_yog1c"]
+material = ExtResource("1_ullay")
+size = Vector3(1.25, 1, 0.25)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_yog1c"]
+size = Vector3(1.25, 1, 0.25)
+
+[sub_resource type="BoxMesh" id="BoxMesh_an2h8"]
+material = ExtResource("1_ullay")
+size = Vector3(2, 1, 0.25)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_vsn63"]
+size = Vector3(2, 1, 0.25)
+
+[sub_resource type="BoxMesh" id="BoxMesh_ullay"]
+material = ExtResource("1_ullay")
+size = Vector3(1.5, 3, 1.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_l6mkf"]
+size = Vector3(1.5, 3, 1.5)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_ee2y0"]
+material = ExtResource("1_ullay")
+top_radius = 1.0
+bottom_radius = 1.0
+height = 0.5
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_ullay"]
+height = 0.5
+radius = 1.0
+
+[sub_resource type="PrismMesh" id="PrismMesh_ullay"]
+material = ExtResource("1_ullay")
+left_to_right = 1.0
+size = Vector3(2, 1, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_ee2y0"]
+material = ExtResource("1_ullay")
+radius = 1.0
+height = 2.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_ullay"]
+radius = 1.0
+
+[node name="PrototypeMeshes" type="Node3D" unique_id=1865212222]
+
+[node name="UnitCube" type="MeshInstance3D" parent="." unique_id=1350521463]
+mesh = SubResource("BoxMesh_ee2y0")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="UnitCube" unique_id=750103765]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="UnitCube/StaticBody3D" unique_id=1981001926]
+shape = SubResource("BoxShape3D_ullay")
+
+[node name="45Slant" type="MeshInstance3D" parent="." unique_id=293962720]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, 0)
+mesh = SubResource("PrismMesh_ee2y0")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="45Slant" unique_id=1135072049]
+
+[node name="CollisionPolygon3D" type="CollisionPolygon3D" parent="45Slant/StaticBody3D" unique_id=1616465043]
+polygon = PackedVector2Array(0.5, 0.5, 0.5020399, -0.49678543, -0.5, -0.5)
+
+[node name="UnitCylinder" type="MeshInstance3D" parent="." unique_id=566689401]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 0)
+mesh = SubResource("CylinderMesh_ullay")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="UnitCylinder" unique_id=1742014270]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="UnitCylinder/StaticBody3D" unique_id=660780676]
+shape = SubResource("CylinderShape3D_l6mkf")
+
+[node name="ShortWall" type="MeshInstance3D" parent="." unique_id=1608270280]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
+mesh = SubResource("BoxMesh_yog1c")
+
+[node name="StaticBody3D2" type="StaticBody3D" parent="ShortWall" unique_id=1467526026]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ShortWall/StaticBody3D2" unique_id=299768176]
+shape = SubResource("BoxShape3D_yog1c")
+
+[node name="Wall" type="MeshInstance3D" parent="." unique_id=1891880285]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 2)
+mesh = SubResource("BoxMesh_an2h8")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Wall" unique_id=765087126]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Wall/StaticBody3D" unique_id=2076232113]
+shape = SubResource("BoxShape3D_vsn63")
+
+[node name="LargePillar" type="MeshInstance3D" parent="." unique_id=1634533513]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 1, 4)
+mesh = SubResource("BoxMesh_ullay")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="LargePillar" unique_id=672901694]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LargePillar/StaticBody3D" unique_id=1606350586]
+shape = SubResource("BoxShape3D_l6mkf")
+
+[node name="LargeDisc" type="MeshInstance3D" parent="." unique_id=883254015]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 4)
+mesh = SubResource("CylinderMesh_ee2y0")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="LargeDisc" unique_id=2030363329]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LargeDisc/StaticBody3D" unique_id=1021709532]
+shape = SubResource("CylinderShape3D_ullay")
+
+[node name="30Slant" type="MeshInstance3D" parent="." unique_id=1141426601]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0.25, 4)
+mesh = SubResource("PrismMesh_ullay")
+
+[node name="LargeSphere" type="MeshInstance3D" parent="." unique_id=1004324734]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, 4)
+mesh = SubResource("SphereMesh_ee2y0")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="LargeSphere" unique_id=194828048]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LargeSphere/StaticBody3D" unique_id=405070880]
+shape = SubResource("SphereShape3D_ullay")

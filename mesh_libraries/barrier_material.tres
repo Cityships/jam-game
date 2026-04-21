@@ -1,0 +1,11 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://do8xmwlfrlhnk"]
+
+[ext_resource type="Texture2D" uid="uid://cq073ef6ckyc4" path="res://addons/kenney_prototype_textures/dark/texture_05.png" id="1_n5oix"]
+
+[resource]
+transparency = 1
+blend_mode = 1
+albedo_color = Color(0.5921569, 0.7921569, 1, 0.67058825)
+albedo_texture = ExtResource("1_n5oix")
+emission = Color(1, 1, 1, 1)
+uv1_triplanar = true
