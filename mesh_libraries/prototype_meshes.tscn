@@ -131,6 +131,11 @@ shape = SubResource("CylinderShape3D_ullay")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0.25, 4)
 mesh = SubResource("PrismMesh_ullay")
 
+[node name="StaticBody3D" type="StaticBody3D" parent="30Slant" unique_id=792138276]
+
+[node name="CollisionPolygon3D" type="CollisionPolygon3D" parent="30Slant/StaticBody3D" unique_id=1297605715]
+polygon = PackedVector2Array(1, 0.5, 1, -0.5, -1, -0.5)
+
 [node name="LargeSphere" type="MeshInstance3D" parent="." unique_id=1004324734]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, 4)
 mesh = SubResource("SphereMesh_ee2y0")

@@ -1,0 +1,39 @@
+[gd_scene format=3 uid="uid://b66664blb68o4"]
+
+[ext_resource type="Script" uid="uid://5qbcfkuvs6l" path="res://main_ui.gd" id="1_hvcg1"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_hvcg1"]
+font_size = 64
+
+[node name="MainUI" type="CanvasLayer" unique_id=852991961 node_paths=PackedStringArray("pause_display")]
+process_mode = 3
+script = ExtResource("1_hvcg1")
+pause_display = NodePath("PauseDisplay")
+
+[node name="PauseDisplay" type="CenterContainer" parent="." unique_id=1163931441]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="PauseDisplay" unique_id=549575583]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="PauseDisplay/PanelContainer" unique_id=452621379]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="Label" type="Label" parent="PauseDisplay/PanelContainer/MarginContainer" unique_id=1752151852]
+layout_mode = 2
+text = "paused"
+label_settings = SubResource("LabelSettings_hvcg1")
+horizontal_alignment = 1
+vertical_alignment = 1
