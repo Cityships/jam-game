@@ -1,0 +1,120 @@
+[gd_scene format=3 uid="uid://bbselq8d3gmqx"]
+
+[ext_resource type="MeshLibrary" uid="uid://tik10plitm7i" path="res://mesh_libraries/prototype_meshes.meshlib" id="1_14nri"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_14nri"]
+sky_top_color = Color(0.2849699, 0.45638627, 0.6720998, 1)
+ground_bottom_color = Color(0.10309694, 0.16025686, 0.33651513, 1)
+ground_horizon_color = Color(0.6197686, 0.74396425, 0.8365944, 1)
+
+[sub_resource type="Sky" id="Sky_ec1ia"]
+sky_material = SubResource("ProceduralSkyMaterial_14nri")
+
+[sub_resource type="Environment" id="Environment_15byj"]
+background_mode = 2
+sky = SubResource("Sky_ec1ia")
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_1w58e"]
+radius = 0.25
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_14nri"]
+top_radius = 0.1
+bottom_radius = 0.25
+
+[sub_resource type="PrismMesh" id="PrismMesh_14nri"]
+size = Vector3(1, 1, 0.5)
+
+[node name="Control" type="Control" unique_id=1931946385]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="." unique_id=776512014]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="HBoxContainer" parent="CenterContainer" unique_id=152426583]
+layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="CenterContainer/VBoxContainer" unique_id=2141187436]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CenterContainer/VBoxContainer/PanelContainer" unique_id=673732523]
+layout_mode = 2
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 32
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_bottom = 32
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="CenterContainer/VBoxContainer/PanelContainer/MarginContainer" unique_id=106470197]
+layout_mode = 2
+
+[node name="SubViewport" type="SubViewport" parent="CenterContainer/VBoxContainer/PanelContainer/MarginContainer/SubViewportContainer" unique_id=1777925162]
+handle_input_locally = false
+render_target_update_mode = 4
+
+[node name="Camera3D" type="Camera3D" parent="CenterContainer/VBoxContainer/PanelContainer/MarginContainer/SubViewportContainer/SubViewport" unique_id=1383152322]
+transform = Transform3D(-0.25881907, 0, -0.9659258, 0, 1, 0, 0.9659258, 0, -0.25881907, -13.829629, 5.5, -4.2940955)
+size = 10.0
+
+[node name="PanelContainer2" type="PanelContainer" parent="CenterContainer/VBoxContainer" unique_id=1239121214]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CenterContainer/VBoxContainer/PanelContainer2" unique_id=267918433]
+layout_mode = 2
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 32
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_bottom = 32
+
+[node name="SubViewportContainer2" type="SubViewportContainer" parent="CenterContainer/VBoxContainer/PanelContainer2/MarginContainer" unique_id=1403287323]
+layout_mode = 2
+
+[node name="SubViewport" type="SubViewport" parent="CenterContainer/VBoxContainer/PanelContainer2/MarginContainer/SubViewportContainer2" unique_id=171096566]
+handle_input_locally = false
+render_target_update_mode = 4
+
+[node name="World3D" type="Node3D" parent="CenterContainer/VBoxContainer/PanelContainer2/MarginContainer/SubViewportContainer2/SubViewport" unique_id=1307079505]
+
+[node name="Environment" type="Node3D" parent="CenterContainer/VBoxContainer/PanelContainer2/MarginContainer/SubViewportContainer2/SubViewport/World3D" unique_id=779185884]
+
+[node name="GridMap" type="GridMap" parent="CenterContainer/VBoxContainer/PanelContainer2/MarginContainer/SubViewportContainer2/SubViewport/World3D/Environment" unique_id=123525910]
+mesh_library = ExtResource("1_14nri")
+cell_size = Vector3(1, 1, 1)
+data = {
+"cells": PackedInt32Array(65532, 65533, 0, 65532, 65534, 0, 65532, 65535, 0, 65532, 0, 0, 65532, 1, 0, 65532, 2, 0, 65532, 3, 0, 65533, 65533, 0, 65533, 65534, 0, 65533, 65535, 0, 65533, 0, 0, 65533, 1, 0, 65533, 2, 0, 65533, 3, 0, 65534, 65533, 0, 65534, 65534, 0, 65534, 65535, 0, 65534, 0, 0, 65534, 1, 0, 65534, 2, 0, 65534, 3, 0, 65535, 65533, 0, 65535, 65534, 0, 65535, 65535, 0, 65535, 0, 0, 65535, 1, 0, 65535, 2, 0, 65535, 3, 0, 0, 65533, 0, 0, 65534, 0, 0, 65535, 0, 0, 0, 0, 0, 1, 0, 0, 2, 0, 0, 3, 0, 1, 65533, 0, 1, 65534, 0, 1, 65535, 0, 1, 0, 0, 1, 1, 0, 1, 2, 0, 1, 3, 0, 2, 65533, 0, 2, 65534, 0, 2, 65535, 0, 2, 0, 0, 2, 1, 0, 2, 2, 0, 2, 3, 0, 3, 65533, 0, 3, 65534, 0, 3, 65535, 0, 3, 0, 0, 3, 1, 0, 3, 2, 0, 3, 3, 0, 131069, 65534, 0, 131069, 65535, 0, 131070, 65534, 0, 131070, 65535, 0, 196605, 65534, 0, 196605, 65535, 0, 196606, 65534, 0, 196606, 65535, 0, 262141, 65534, 7, 262141, 65535, 7, 262143, 65534, 655367, 262143, 65535, 655367, 131071, 65535, 655360, 131071, 65534, 655360, 196607, 65534, 655360, 196607, 65535, 655360, 4, 65533, 655360, 4, 65534, 655360, 4, 65535, 655360, 4, 0, 655360, 4, 1, 655360, 4, 2, 655360, 4, 3, 655360, 5, 65533, 655360, 5, 65534, 655360, 5, 65535, 655360, 5, 0, 655360, 5, 1, 655360, 5, 2, 655360, 5, 3, 655360, 6, 65533, 655360, 6, 65534, 655360, 6, 65535, 655360, 6, 0, 655360, 6, 1, 655360, 6, 2, 655360, 6, 3, 655360, 7, 65533, 655360, 7, 65534, 655360, 7, 65535, 655360, 7, 0, 655360, 7, 1, 655360, 7, 2, 655360, 7, 3, 655360)
+}
+metadata/_editor_floor_ = Vector3(0, 0, 0)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="CenterContainer/VBoxContainer/PanelContainer2/MarginContainer/SubViewportContainer2/SubViewport/World3D/Environment" unique_id=962885432]
+environment = SubResource("Environment_15byj")
+
+[node name="Camera3D" type="Camera3D" parent="CenterContainer/VBoxContainer/PanelContainer2/MarginContainer/SubViewportContainer2/SubViewport/World3D" unique_id=9997199]
+transform = Transform3D(1, 0, 8.940697e-08, 0, 1, 0, -8.940697e-08, 0, 1, 2, 4, 8)
+
+[node name="SpaceShip" type="Node3D" parent="CenterContainer/VBoxContainer/PanelContainer2/MarginContainer/SubViewportContainer2/SubViewport/World3D" unique_id=356721101]
+transform = Transform3D(-0.25881907, 0, -0.9659258, 0, 1, 0, 0.9659258, 0, -0.25881907, -9, 2, -3)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CenterContainer/VBoxContainer/PanelContainer2/MarginContainer/SubViewportContainer2/SubViewport/World3D/SpaceShip" unique_id=1083468068]
+mesh = SubResource("CapsuleMesh_1w58e")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CenterContainer/VBoxContainer/PanelContainer2/MarginContainer/SubViewportContainer2/SubViewport/World3D/SpaceShip/MeshInstance3D" unique_id=1496675120]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("CylinderMesh_14nri")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="CenterContainer/VBoxContainer/PanelContainer2/MarginContainer/SubViewportContainer2/SubViewport/World3D/SpaceShip/MeshInstance3D" unique_id=1446958231]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+mesh = SubResource("PrismMesh_14nri")
+
+[node name="RemoteTransform3D" type="RemoteTransform3D" parent="CenterContainer/VBoxContainer/PanelContainer2/MarginContainer/SubViewportContainer2/SubViewport/World3D/SpaceShip" unique_id=1291483476]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.5, 5)
+remote_path = NodePath("../../../../../../../PanelContainer/MarginContainer/SubViewportContainer/SubViewport/Camera3D")
+
+[node name="WorldEnvironment" type="Node" parent="." unique_id=1029871692]

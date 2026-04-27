@@ -27,6 +27,7 @@ height = 1.6
 script = ExtResource("1_m4dtf")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1370219359]
+visible = false
 mesh = SubResource("CapsuleMesh_gjeds")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="MeshInstance3D" unique_id=1493351709]
@@ -37,10 +38,11 @@ mesh = SubResource("CylinderMesh_dc6vn")
 shape = SubResource("CapsuleShape3D_xnx3l")
 
 [node name="CameraOrigin" type="Node3D" parent="." unique_id=831905967]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
 
 [node name="SpringArm3D" type="SpringArm3D" parent="CameraOrigin" unique_id=1697044795]
-spring_length = 2.0
+spring_length = 5.0
 margin = 0.5
 
 [node name="Camera3D" type="Camera3D" parent="CameraOrigin/SpringArm3D" unique_id=110671424]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 2.5)
+transform = Transform3D(1, 0, 0, 0, 0.9659259, 0.25881907, 0, -0.25881907, 0.9659258, 0, 0, 5)

@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://0t6al462q8ob" path="res://assets/nautilus/nautilus_diffuse.png" id="3_4erfu"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_g6wqb"]
-render_priority = 0
+render_priority = 1
 shader = ExtResource("1_g6wqb")
 shader_parameter/weight = 0.1
 shader_parameter/color = Color(0, 0, 0, 1)
@@ -26,7 +26,7 @@ colors = PackedColorArray(0, 0, 0, 1, 0.973535, 0.9735351, 0.973535, 1)
 gradient = SubResource("Gradient_e4njv")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_4erfu"]
-render_priority = 0
+render_priority = 1
 shader = ExtResource("2_g6wqb")
 shader_parameter/diffuse_texture = ExtResource("3_4erfu")
 shader_parameter/color_gradient = SubResource("GradientTexture1D_e4njv")

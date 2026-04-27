@@ -1,0 +1,76 @@
+[gd_scene format=3 uid="uid://b0tatl4b8l3k3"]
+
+[ext_resource type="Shader" uid="uid://ci3veu0sdxosp" path="res://assets/shaders/water_bubble.gdshader" id="1_2n46k"]
+[ext_resource type="Shader" uid="uid://cr1ug2c2qf8w2" path="res://assets/shaders/energy_projectile.gdshader" id="2_r4ake"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_2n46k"]
+frequency = 0.0062
+fractal_type = 0
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_r4ake"]
+noise = SubResource("FastNoiseLite_2n46k")
+seamless = true
+seamless_blend_skirt = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ord1j"]
+render_priority = 0
+shader = ExtResource("1_2n46k")
+shader_parameter/Color = Color(0, 1.1991348, 2.3330584, 1)
+shader_parameter/glow_color = Color(0, 2.4426584, 2.4426584, 1)
+shader_parameter/dist = 2.18
+shader_parameter/speed = 0.72
+shader_parameter/glow_intensity = 0.58
+shader_parameter/glow_amount = 4.53
+shader_parameter/posMult = 0.11
+shader_parameter/noise = SubResource("NoiseTexture2D_r4ake")
+
+[sub_resource type="SphereMesh" id="SphereMesh_6npoq"]
+material = SubResource("ShaderMaterial_ord1j")
+radius = 0.35
+height = 0.7
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_r4ake"]
+noise_type = 2
+fractal_type = 0
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_mp7fl"]
+noise = SubResource("FastNoiseLite_r4ake")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6npoq"]
+render_priority = 0
+shader = ExtResource("2_r4ake")
+shader_parameter/smoke_texture = SubResource("NoiseTexture2D_mp7fl")
+shader_parameter/color = Color(0.45490998, 0.7881173, 0.8385942, 1)
+shader_parameter/fade_size = 0.016
+shader_parameter/fade_blend = 0.364
+shader_parameter/smoke_sharpness = 0.674
+shader_parameter/time_scale = 0.665
+shader_parameter/height_fade = 4.23
+shader_parameter/scissor = 0.492
+
+[sub_resource type="SphereMesh" id="SphereMesh_44wy0"]
+material = SubResource("ShaderMaterial_6npoq")
+radius = 0.3
+height = 0.6
+
+[sub_resource type="Environment" id="Environment_mp7fl"]
+glow_enabled = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_f7idw"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_56nv7"]
+lightmap_size_hint = Vector2i(12, 12)
+material = SubResource("ShaderMaterial_f7idw")
+
+[node name="Node3D" type="MeshInstance3D" unique_id=738692380]
+mesh = SubResource("SphereMesh_6npoq")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=706113664]
+mesh = SubResource("SphereMesh_44wy0")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1467904805]
+environment = SubResource("Environment_mp7fl")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="." unique_id=687248773]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+mesh = SubResource("PlaneMesh_56nv7")

@@ -15,6 +15,10 @@ run/main_scene="uid://cnkdoh7ffax1q"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="uid://cbj7chy1lwm8p"
 
+[display]
+
+window/stretch/mode="viewport"
+
 [input]
 
 toggle_mouse_capture={
