@@ -1,6 +1,8 @@
 extends CharacterBody3D
 
 
+signal override_velocity
+
 const SPEED = 5.0
 const JUMP_VELOCITY = 4.5
 
