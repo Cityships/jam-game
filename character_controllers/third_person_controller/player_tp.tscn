@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://62cn7xljc5bv"]
 
 [ext_resource type="Script" uid="uid://bkwkdgpvsl1qj" path="res://character_controllers/third_person_controller/player_tp.gd" id="1_m4dtf"]
+[ext_resource type="Material" uid="uid://1wuax1y8vc1w" path="res://assets/shaders/glass_window.tres" id="2_jree4"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_m4dtf"]
 albedo_color = Color(0.99607843, 0.49411765, 0.3254902, 1)
@@ -22,6 +23,11 @@ height = 0.5
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_xnx3l"]
 radius = 0.45
 height = 1.6
+
+[sub_resource type="SphereMesh" id="SphereMesh_jree4"]
+material = ExtResource("2_jree4")
+radius = 1.0
+height = 2.0
 
 [node name="Player" type="CharacterBody3D" unique_id=829270069]
 script = ExtResource("1_m4dtf")
@@ -46,3 +52,7 @@ margin = 0.5
 
 [node name="Camera3D" type="Camera3D" parent="CameraOrigin/SpringArm3D" unique_id=110671424]
 transform = Transform3D(1, 0, 0, 0, 0.9659259, 0.25881907, 0, -0.25881907, 0.9659258, 0, 0, 5)
+
+[node name="glass" type="MeshInstance3D" parent="CameraOrigin/SpringArm3D/Camera3D" unique_id=1050678644]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.99999994, 0, 0, -1)
+mesh = SubResource("SphereMesh_jree4")

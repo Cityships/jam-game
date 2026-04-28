@@ -19,7 +19,7 @@ metadata/_snap_enabled = true
 gradient = SubResource("Gradient_4erfu")
 
 [sub_resource type="Gradient" id="Gradient_e4njv"]
-offsets = PackedFloat32Array(0.7933579, 1)
+offsets = PackedFloat32Array(0.5221239, 1)
 colors = PackedColorArray(0, 0, 0, 1, 0.973535, 0.9735351, 0.973535, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_w3d0w"]

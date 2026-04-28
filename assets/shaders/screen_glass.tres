@@ -1,0 +1,51 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://dox4agu2n6xt0"]
+
+[ext_resource type="Shader" uid="uid://duiiq06408nex" path="res://assets/shaders/glass.gdshader" id="1_twdmj"]
+
+[sub_resource type="Gradient" id="Gradient_jree4"]
+colors = PackedColorArray(0.46618086, 0.4661808, 0.4661808, 1, 1, 1, 1, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_4se27"]
+noise_type = 0
+frequency = 0.3226
+fractal_type = 0
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_4se27"]
+noise = SubResource("FastNoiseLite_4se27")
+color_ramp = SubResource("Gradient_jree4")
+in_3d_space = true
+seamless_blend_skirt = 1.0
+
+[sub_resource type="Gradient" id="Gradient_53nuh"]
+colors = PackedColorArray(0.42941663, 0.42941582, 0.429416, 1, 0.7856409, 0.78564084, 0.78564084, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_r5yaa"]
+noise_type = 2
+fractal_type = 0
+cellular_distance_function = 1
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_tun1s"]
+noise = SubResource("FastNoiseLite_r5yaa")
+color_ramp = SubResource("Gradient_53nuh")
+seamless = true
+seamless_blend_skirt = 1.0
+
+[resource]
+render_priority = -1
+shader = ExtResource("1_twdmj")
+shader_parameter/transparency_colour = Color(0.66999996, 0.8405, 1, 1)
+shader_parameter/AirIOR = 1.0
+shader_parameter/IOR = 1.5
+shader_parameter/uv1_scale = Vector2(1, 1)
+shader_parameter/uv1_offset = Vector2(0, 0)
+shader_parameter/normal_texture = SubResource("NoiseTexture2D_4se27")
+shader_parameter/normalstrength = 1.0
+shader_parameter/transparency_texture = SubResource("NoiseTexture2D_tun1s")
+shader_parameter/refraction_type = 1
+shader_parameter/simple_refraction_amount = 0.1
+shader_parameter/traced_refraction_far_clip = 50.0
+shader_parameter/traced_refraction_steps = 256
+shader_parameter/ssr_type = 1
+shader_parameter/traced_ssr_far_clip = 10.545
+shader_parameter/traced_ssr_steps = 512
+shader_parameter/ssr_screen_fade = 0.05

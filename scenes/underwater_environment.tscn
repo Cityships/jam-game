@@ -5,8 +5,11 @@
 [ext_resource type="Material" uid="uid://b5fo41yvfxcdd" path="res://assets/shaders/container_caustic_mat.tres" id="3_q1qmx"]
 [ext_resource type="Shader" uid="uid://csiy5qoqx4x3g" path="res://assets/shaders/mesh_caustic.gdshader" id="4_q1qmx"]
 [ext_resource type="PackedScene" uid="uid://62cn7xljc5bv" path="res://character_controllers/third_person_controller/player_tp.tscn" id="5_q1qmx"]
+[ext_resource type="Shader" uid="uid://dbkelhb28nyr8" path="res://assets/shaders/god_rays.gdshader" id="6_5fyfr"]
 [ext_resource type="PackedScene" uid="uid://b66664blb68o4" path="res://UI/main_ui.tscn" id="6_hcl6q"]
 [ext_resource type="PackedScene" uid="uid://8tmlremaapnk" path="res://assets/props/environment_props.blend" id="7_37dta"]
+[ext_resource type="Shader" uid="uid://bfjarlw1x3g72" path="res://assets/shaders/canvas_glass.gdshader" id="8_qdnds"]
+[ext_resource type="Shader" uid="uid://ci3veu0sdxosp" path="res://assets/shaders/water_bubble.gdshader" id="10_hxys6"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_hcl6q"]
 material = ExtResource("3_q1qmx")
@@ -25,8 +28,6 @@ fog_light_energy = 0.74
 fog_density = 0.5
 fog_depth_curve = 0.65975404
 
-[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_q1qmx"]
-
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_31636"]
 noise_type = 2
 frequency = 0.0131
@@ -38,14 +39,113 @@ noise = SubResource("FastNoiseLite_31636")
 seamless = true
 seamless_blend_skirt = 1.0
 
+[sub_resource type="Gradient" id="Gradient_qdnds"]
+offsets = PackedFloat32Array(0.38247862, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_kblww"]
+noise_type = 2
+frequency = 0.001
+fractal_type = 0
+cellular_distance_function = 1
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_jx6cl"]
+noise = SubResource("FastNoiseLite_kblww")
+color_ramp = SubResource("Gradient_qdnds")
+seamless = true
+seamless_blend_skirt = 1.0
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_hcl6q"]
-render_priority = 0
+render_priority = -1
 shader = ExtResource("4_q1qmx")
 shader_parameter/caustic_noise = SubResource("NoiseTexture2D_q1qmx")
+shader_parameter/distortion_noise = SubResource("NoiseTexture2D_jx6cl")
+shader_parameter/distortion_strength = 0.05
+shader_parameter/scroll_a = 0.05
+shader_parameter/scroll_b = 0.025
 shader_parameter/scale = 0.12
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_37dta"]
 size = Vector2(16, 16)
+
+[sub_resource type="Gradient" id="Gradient_5fyfr"]
+offsets = PackedFloat32Array(0.5567227, 0.85294116)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_s5j0y"]
+frequency = 0.0447
+fractal_type = 0
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_hxys6"]
+noise = SubResource("FastNoiseLite_s5j0y")
+color_ramp = SubResource("Gradient_5fyfr")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_s5j0y"]
+render_priority = 0
+shader = ExtResource("6_5fyfr")
+shader_parameter/noise = SubResource("NoiseTexture2D_hxys6")
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_hxys6"]
+material = SubResource("ShaderMaterial_s5j0y")
+flip_faces = true
+top_radius = 8.0
+bottom_radius = 32.0
+height = 30.0
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_mf4cb"]
+noise_type = 0
+fractal_type = 0
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_kblww"]
+noise = SubResource("FastNoiseLite_mf4cb")
+seamless = true
+seamless_blend_skirt = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mf4cb"]
+shader = ExtResource("8_qdnds")
+shader_parameter/refraction_map = SubResource("NoiseTexture2D_kblww")
+shader_parameter/refraction_stretch = Vector2(1, 1)
+shader_parameter/refraction_strength = 0.0030000001425
+shader_parameter/water_tint = Color(0.2, 0.6, 1, 0.1)
+shader_parameter/speed = 0.07200000342
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_qdnds"]
+noise_type = 3
+frequency = 0.0023
+fractal_type = 0
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_mf4cb"]
+noise = SubResource("FastNoiseLite_qdnds")
+seamless = true
+seamless_blend_skirt = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kblww"]
+render_priority = 0
+shader = ExtResource("10_hxys6")
+shader_parameter/Color = Color(0.43418244, 0.7245878, 0.9680744, 1)
+shader_parameter/glow_color = Color(0.11603858, 0.54709816, 0.82448125, 1)
+shader_parameter/dist = 1.285
+shader_parameter/speed = 0.035
+shader_parameter/glow_intensity = 2.575
+shader_parameter/glow_amount = 0.885
+shader_parameter/posMult = 0.125
+shader_parameter/noise = SubResource("NoiseTexture2D_mf4cb")
+
+[sub_resource type="Curve" id="Curve_hxys6"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.564257, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_qdnds"]
+curve = SubResource("Curve_hxys6")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_muunj"]
+emission_shape = 1
+emission_sphere_radius = 1.0
+gravity = Vector3(0, 8, 0)
+damping_min = 4.0
+damping_max = 4.0
+scale_min = 0.55
+alpha_curve = SubResource("CurveTexture_qdnds")
+
+[sub_resource type="SphereMesh" id="SphereMesh_xpjec"]
 
 [node name="Root" type="Node3D" unique_id=345669532]
 
@@ -58,15 +158,14 @@ data = {
 metadata/_editor_floor_ = Vector3(0, 0, -13)
 
 [node name="test_caustic_1" type="MeshInstance3D" parent="." unique_id=22484993]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 1)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11, 1.05, 0)
 mesh = SubResource("PlaneMesh_hcl6q")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=108478756]
 environment = SubResource("Environment_68myo")
-camera_attributes = SubResource("CameraAttributesPractical_q1qmx")
 
 [node name="test_caustic_2" type="MeshInstance3D" parent="." unique_id=582390346]
-transform = Transform3D(0.9659258, -0.24999999, 0.0669873, 0.25881904, 0.9330128, -0.25000003, -3.8567047e-09, 0.2588191, 0.96592605, 10, 3, -6)
+transform = Transform3D(0.99999994, 0, 0, 0, 1, 0, 0, 0, 1.0000002, 0, 1.1, -1)
 material_overlay = SubResource("ShaderMaterial_hcl6q")
 mesh = SubResource("PlaneMesh_37dta")
 
@@ -79,13 +178,38 @@ light_volumetric_fog_energy = 3.0
 light_bake_mode = 1
 omni_range = 7.0
 
+[node name="rays" type="MeshInstance3D" parent="." unique_id=1458409926]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.6198463, 21.95, 8.105449)
+visible = false
+mesh = SubResource("CylinderMesh_hxys6")
+
 [node name="Player" parent="." unique_id=829270069 instance=ExtResource("5_q1qmx")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.6198463, 2.75, 3.105449)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.6198463, 2.75, 8.105449)
 
 [node name="nautilus" parent="Player" unique_id=151123312 instance=ExtResource("1_xufid")]
 transform = Transform3D(-0.25, 0, -2.1855694e-08, 0, 0.25, 0, 2.1855694e-08, 0, -0.25, 0, 1.5, 0)
 
+[node name="RemoteTransform3D" type="RemoteTransform3D" parent="Player" unique_id=2090501008]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 19.2, 0)
+remote_path = NodePath("../../rays")
+update_rotation = false
+
 [node name="MainUI" parent="." unique_id=852991961 instance=ExtResource("6_hcl6q")]
+
+[node name="RafractionWindow" type="ColorRect" parent="MainUI" unique_id=346830322]
+material = SubResource("ShaderMaterial_mf4cb")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="environment_props" parent="." unique_id=188411032 instance=ExtResource("7_37dta")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 1, 0)
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="." unique_id=775624154]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, -2)
+material_override = SubResource("ShaderMaterial_kblww")
+lifetime = 2.0
+process_material = SubResource("ParticleProcessMaterial_muunj")
+draw_pass_1 = SubResource("SphereMesh_xpjec")

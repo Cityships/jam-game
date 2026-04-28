@@ -32,8 +32,8 @@ void fragment() {
 	
 	float rimLevel = texture(noise, vec2(NORMAL.x + (TIME * speed),NORMAL.y)).r;
 	
-	ALBEDO = Color + glow_fresnel * rimLevel;
+	ALBEDO *= Color + glow_fresnel * rimLevel;
 	float fresnel = fresnel(dist, NORMAL, VIEW);
 	RIM = rimLevel;
-	ALPHA = fresnel;
+	ALPHA *= fresnel;
 }
