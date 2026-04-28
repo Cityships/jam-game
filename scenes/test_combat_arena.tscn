@@ -1,0 +1,60 @@
+[gd_scene format=3 uid="uid://c2if715dhbthr"]
+
+[ext_resource type="PackedScene" uid="uid://62cn7xljc5bv" path="res://character_controllers/third_person_controller/player_tp.tscn" id="1_ujif5"]
+[ext_resource type="PackedScene" uid="uid://b66664blb68o4" path="res://UI/main_ui.tscn" id="2_118q5"]
+[ext_resource type="Script" uid="uid://cs1pq5r2h36tj" path="res://experimentation/danger_area_spawner.gd" id="3_118q5"]
+[ext_resource type="Script" uid="uid://745tqvw6iq55" path="res://experimentation/bullet_spawner.gd" id="4_akcnx"]
+
+[sub_resource type="PrismMesh" id="PrismMesh_118q5"]
+left_to_right = 1.0
+size = Vector3(5, 1, 5)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5xivh"]
+albedo_color = Color(0.8407057, 0, 0.26517525, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_o0ev7"]
+material = SubResource("StandardMaterial3D_5xivh")
+top_radius = 1.0
+bottom_radius = 1.0
+height = 4.0
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_5xivh"]
+height = 4.0
+radius = 1.0
+
+[node name="Main" type="Node3D" unique_id=874038051]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=795350801]
+transform = Transform3D(1, 0, 0, 0, 0.9659258, 0.25881904, 0, -0.25881904, 0.9659258, 0, 9, 0)
+
+[node name="Environment" type="Node3D" parent="." unique_id=1797193974]
+
+[node name="CSGCombiner3D" type="CSGCombiner3D" parent="Environment" unique_id=1207173650]
+use_collision = true
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Environment/CSGCombiner3D" unique_id=253714786]
+size = Vector3(20, 1, 20)
+
+[node name="CSGMesh3D" type="CSGMesh3D" parent="Environment/CSGCombiner3D" unique_id=1520372330]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 1, 0)
+mesh = SubResource("PrismMesh_118q5")
+
+[node name="Player" parent="." unique_id=829270069 instance=ExtResource("1_ujif5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 7)
+
+[node name="BossEnemy" type="CharacterBody3D" parent="." unique_id=881504157]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="BossEnemy" unique_id=425762462]
+mesh = SubResource("CylinderMesh_o0ev7")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BossEnemy" unique_id=1185635935]
+shape = SubResource("CylinderShape3D_5xivh")
+
+[node name="MainUI" parent="." unique_id=852991961 instance=ExtResource("2_118q5")]
+
+[node name="DangerAreaSpawner" type="Node3D" parent="." unique_id=1866837804]
+script = ExtResource("3_118q5")
+
+[node name="BulletSpawner" type="Node3D" parent="." unique_id=35072232]
+script = ExtResource("4_akcnx")
