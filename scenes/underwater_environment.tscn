@@ -314,11 +314,12 @@ delay_fire = 2.0
 [node name="BulletSpawner" type="Node3D" parent="TornadoAttack" unique_id=1588481878]
 script = ExtResource("12_muunj")
 bullet_scene = ExtResource("13_xpjec")
+spawn_offset = Vector3(0, -1, 0)
 fire_velocity = 5.0
 fire_velocity_ramp = 0.2
 
 [node name="Tornado" type="MeshInstance3D" parent="TornadoAttack" unique_id=1470759345]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.6999998, 0)
 mesh = SubResource("CylinderMesh_bq74v")
 script = ExtResource("15_rib5p")
 rotation_speed = 2.0

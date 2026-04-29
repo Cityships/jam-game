@@ -33,7 +33,6 @@ height = 2.0
 script = ExtResource("1_m4dtf")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1370219359]
-visible = false
 mesh = SubResource("CapsuleMesh_gjeds")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="MeshInstance3D" unique_id=1493351709]
@@ -55,4 +54,5 @@ transform = Transform3D(1, 0, 0, 0, 0.9659259, 0.25881907, 0, -0.25881907, 0.965
 
 [node name="glass" type="MeshInstance3D" parent="CameraOrigin/SpringArm3D/Camera3D" unique_id=1050678644]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.99999994, 0, 0, -1)
+visible = false
 mesh = SubResource("SphereMesh_jree4")
