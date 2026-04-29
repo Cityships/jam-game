@@ -1,0 +1,26 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://celvpx6plh53s"]
+
+[ext_resource type="Shader" uid="uid://cg4jy2u03lfe3" path="res://assets/shaders/composite_shader.gdshader" id="1_4vbpo"]
+[ext_resource type="Texture2D" uid="uid://0t6al462q8ob" path="res://assets/nautilus/nautilus_diffuse.png" id="2_781r8"]
+
+[sub_resource type="Gradient" id="Gradient_co6gj"]
+interpolation_mode = 1
+offsets = PackedFloat32Array(0, 0.80140185)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_gpfyw"]
+gradient = SubResource("Gradient_co6gj")
+
+[sub_resource type="Gradient" id="Gradient_j6ddk"]
+interpolation_mode = 1
+offsets = PackedFloat32Array(0.44626167, 0.71028036)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_q8jhg"]
+gradient = SubResource("Gradient_j6ddk")
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_4vbpo")
+shader_parameter/diffuse_texture = ExtResource("2_781r8")
+shader_parameter/color_gradient = SubResource("GradientTexture1D_gpfyw")
+shader_parameter/fresnel_gradient = SubResource("GradientTexture1D_q8jhg")
+shader_parameter/fresnel_intensity = 0.635

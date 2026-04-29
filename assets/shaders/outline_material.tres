@@ -1,0 +1,9 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://jthwm2fpl3aa"]
+
+[ext_resource type="Shader" uid="uid://doqiyu0d8jacl" path="res://assets/shaders/outline_overlay.gdshader" id="1_0i0o7"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_0i0o7")
+shader_parameter/weight = 0.01
+shader_parameter/color = Color(0, 0, 0, 1)
