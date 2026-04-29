@@ -1,0 +1,60 @@
+[gd_scene format=3 uid="uid://bvpjwj8r6tbn7"]
+
+[ext_resource type="Shader" uid="uid://ci3veu0sdxosp" path="res://assets/shaders/water_bubble.gdshader" id="1_utv54"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_x84vs"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_vfni1"]
+noise = SubResource("FastNoiseLite_x84vs")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_e06y6"]
+render_priority = 0
+shader = ExtResource("1_utv54")
+shader_parameter/Color = Color(0.37540686, 0.57758796, 0.9287806, 1)
+shader_parameter/glow_color = Color(0.5022339, 0.73251253, 0.59729964, 1)
+shader_parameter/dist = 2.535
+shader_parameter/speed = 0.35
+shader_parameter/glow_intensity = 0.08
+shader_parameter/glow_amount = 1.015
+shader_parameter/posMult = 0.04
+shader_parameter/noise = SubResource("NoiseTexture2D_vfni1")
+
+[sub_resource type="SphereMesh" id="SphereMesh_kko3w"]
+material = SubResource("ShaderMaterial_e06y6")
+
+[sub_resource type="Gradient" id="Gradient_piuw2"]
+offsets = PackedFloat32Array(0, 0.4800885, 0.8606195, 1)
+colors = PackedColorArray(0.2869364, 0.84448075, 0.809309, 1, 0.17533132, 0.47713464, 0.5506082, 0.81068707, 0.015599985, 0.41053998, 0.78, 0.8, 0.6912, 0.77632004, 0.96, 0.6666667)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_40tq6"]
+gradient = SubResource("Gradient_piuw2")
+fill_from = Vector2(0.5, 0.3)
+fill_to = Vector2(0.5, 1)
+metadata/_snap_enabled = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_k50b8"]
+transparency = 1
+shading_mode = 0
+albedo_texture = SubResource("GradientTexture2D_40tq6")
+
+[sub_resource type="SphereMesh" id="SphereMesh_jmddt"]
+material = SubResource("StandardMaterial3D_k50b8")
+radius = 0.45
+height = 0.9
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_utv54"]
+
+[node name="Bullet" type="RigidBody3D" unique_id=2125109741]
+collision_layer = 0
+collision_mask = 0
+gravity_scale = -0.1
+linear_damp = 1.0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=461708519]
+mesh = SubResource("SphereMesh_kko3w")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="MeshInstance3D" unique_id=2005462392]
+mesh = SubResource("SphereMesh_jmddt")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=607852675]
+shape = SubResource("SphereShape3D_utv54")

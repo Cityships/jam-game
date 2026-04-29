@@ -8,8 +8,13 @@
 [ext_resource type="Shader" uid="uid://dbkelhb28nyr8" path="res://assets/shaders/god_rays.gdshader" id="6_5fyfr"]
 [ext_resource type="PackedScene" uid="uid://b66664blb68o4" path="res://UI/main_ui.tscn" id="6_hcl6q"]
 [ext_resource type="PackedScene" uid="uid://8tmlremaapnk" path="res://assets/props/environment_props.blend" id="7_37dta"]
+[ext_resource type="Shader" uid="uid://c7oycxc0uopwx" path="res://assets/shaders/tornado.gdshader" id="7_mf4cb"]
 [ext_resource type="Shader" uid="uid://bfjarlw1x3g72" path="res://assets/shaders/canvas_glass.gdshader" id="8_qdnds"]
 [ext_resource type="Shader" uid="uid://ci3veu0sdxosp" path="res://assets/shaders/water_bubble.gdshader" id="10_hxys6"]
+[ext_resource type="Script" uid="uid://g1nxhpppdqsw" path="res://experimentation/tornado_attack.gd" id="11_yc3pu"]
+[ext_resource type="Script" uid="uid://745tqvw6iq55" path="res://experimentation/bullet_spawner.gd" id="12_muunj"]
+[ext_resource type="PackedScene" uid="uid://bvpjwj8r6tbn7" path="res://experimentation/bullet.tscn" id="13_xpjec"]
+[ext_resource type="Script" uid="uid://bu8mslqpeetn1" path="res://experimentation/tornado.gd" id="15_rib5p"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_hcl6q"]
 material = ExtResource("3_q1qmx")
@@ -21,6 +26,7 @@ background_color = Color(0.38894323, 0.64904505, 0.733187, 1)
 ambient_light_source = 2
 ambient_light_color = Color(0.76305455, 0.76629174, 0.5684201, 1)
 ambient_light_energy = 1.37
+glow_enabled = true
 fog_enabled = true
 fog_mode = 1
 fog_light_color = Color(0.16217057, 0.77248806, 0.8737711, 1)
@@ -147,6 +153,90 @@ alpha_curve = SubResource("CurveTexture_qdnds")
 
 [sub_resource type="SphereMesh" id="SphereMesh_xpjec"]
 
+[sub_resource type="Curve" id="Curve_mc21h"]
+_limits = [-0.5, 0.5, 0.0, 0.90000004]
+_data = [Vector2(0, -0.5), 0.0, 0.0, 0, 0, Vector2(0.54, 0.10000001), 0.0, 0.0, 0, 0, Vector2(0.72, 0.10000001), 0.0, 0.0, 0, 0, Vector2(0.90000004, -0.5), 0.0, 0.0, 0, 0]
+point_count = 4
+metadata/_snap_enabled = true
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_1iko2"]
+noise_type = 2
+frequency = 0.0275
+fractal_type = 0
+cellular_return_type = 5
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_1wvxy"]
+width = 64
+noise = SubResource("FastNoiseLite_1iko2")
+seamless = true
+seamless_blend_skirt = 1.0
+
+[sub_resource type="Gradient" id="Gradient_mbxx7"]
+offsets = PackedFloat32Array(0, 0.13716814)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_868wt"]
+noise_type = 2
+frequency = 0.0585
+fractal_type = 0
+cellular_distance_function = 1
+cellular_jitter = 2.115
+cellular_return_type = 5
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_1gnp6"]
+width = 129
+noise = SubResource("FastNoiseLite_868wt")
+color_ramp = SubResource("Gradient_mbxx7")
+seamless = true
+in_3d_space = true
+seamless_blend_skirt = 1.0
+
+[sub_resource type="Gradient" id="Gradient_bshrh"]
+offsets = PackedFloat32Array(0.2300885, 0.6946903)
+colors = PackedColorArray(0.027199699, 0.43085814, 0.53152835, 1, 0.94400555, 2.3530843, 2.4569426, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_gy3mv"]
+gradient = SubResource("Gradient_bshrh")
+width = 262
+use_hdr = true
+
+[sub_resource type="Curve" id="Curve_e76yu"]
+_limits = [-1.0, 1.0, 0.0, 1.0]
+_data = [Vector2(0, 1.4901161e-08), 0.0, 0.0, 0, 0, Vector2(0.2, -0.19999999), 0.0, 0.0, 0, 0, Vector2(0.4, 1.4901161e-08), 0.0, 0.0, 0, 0, Vector2(0.7, 0.20000002), 0.0, 0.0, 0, 0, Vector2(0.90000004, 1.4901161e-08), 0.0, 0.0, 0, 0]
+point_count = 5
+metadata/_snap_enabled = true
+
+[sub_resource type="Curve" id="Curve_6me36"]
+_limits = [-1.0, 1.0, 0.0, 1.0]
+_data = [Vector2(0, 1.4901161e-08), 0.0, 0.0, 0, 0, Vector2(0.3, -0.19999999), 0.0, 0.0, 0, 0, Vector2(0.6, 1.4901161e-08), 0.0, 0.0, 0, 0, Vector2(0.8, -0.39999998), 0.0, 0.0, 0, 0, Vector2(1, 1.4901161e-08), 0.0, 0.0, 0, 0]
+point_count = 5
+metadata/_snap_enabled = true
+
+[sub_resource type="CurveXYZTexture" id="CurveXYZTexture_5r0ga"]
+curve_x = SubResource("Curve_e76yu")
+curve_z = SubResource("Curve_6me36")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2pxlg"]
+render_priority = 0
+shader = ExtResource("7_mf4cb")
+shader_parameter/shape_curve = SubResource("CurveXYZTexture_5r0ga")
+shader_parameter/b_alpha = -0.5
+shader_parameter/alpha_cut = SubResource("NoiseTexture2D_1gnp6")
+shader_parameter/albedo_texture = SubResource("NoiseTexture2D_1wvxy")
+shader_parameter/color = SubResource("GradientTexture1D_gy3mv")
+shader_parameter/cut_rotation = 2.000000095
+shader_parameter/tex_rotation = 4.00000019
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_bq74v"]
+material = SubResource("ShaderMaterial_2pxlg")
+flip_faces = true
+top_radius = 3.0
+bottom_radius = 1.5
+height = 8.0
+radial_segments = 32
+rings = 16
+cap_top = false
+cap_bottom = false
+
 [node name="Root" type="Node3D" unique_id=345669532]
 
 [node name="GridMap" type="GridMap" parent="." unique_id=412626964]
@@ -213,3 +303,22 @@ material_override = SubResource("ShaderMaterial_kblww")
 lifetime = 2.0
 process_material = SubResource("ParticleProcessMaterial_muunj")
 draw_pass_1 = SubResource("SphereMesh_xpjec")
+
+[node name="TornadoAttack" type="Node3D" parent="." unique_id=1687929466]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 3, 7)
+script = ExtResource("11_yc3pu")
+alpha_curve = SubResource("Curve_mc21h")
+tornado_lifetime = 7.0
+delay_fire = 2.0
+
+[node name="BulletSpawner" type="Node3D" parent="TornadoAttack" unique_id=1588481878]
+script = ExtResource("12_muunj")
+bullet_scene = ExtResource("13_xpjec")
+fire_velocity = 5.0
+fire_velocity_ramp = 0.2
+
+[node name="Tornado" type="MeshInstance3D" parent="TornadoAttack" unique_id=1470759345]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+mesh = SubResource("CylinderMesh_bq74v")
+script = ExtResource("15_rib5p")
+rotation_speed = 2.0

@@ -2,8 +2,11 @@
 
 [ext_resource type="PackedScene" uid="uid://62cn7xljc5bv" path="res://character_controllers/third_person_controller/player_tp.tscn" id="1_ujif5"]
 [ext_resource type="PackedScene" uid="uid://b66664blb68o4" path="res://UI/main_ui.tscn" id="2_118q5"]
-[ext_resource type="Script" uid="uid://cs1pq5r2h36tj" path="res://experimentation/danger_area_spawner.gd" id="3_118q5"]
+[ext_resource type="PackedScene" uid="uid://bvpjwj8r6tbn7" path="res://experimentation/bullet.tscn" id="3_akcnx"]
+[ext_resource type="Script" uid="uid://g1nxhpppdqsw" path="res://experimentation/tornado_attack.gd" id="3_mbxx7"]
 [ext_resource type="Script" uid="uid://745tqvw6iq55" path="res://experimentation/bullet_spawner.gd" id="4_akcnx"]
+[ext_resource type="Shader" uid="uid://c7oycxc0uopwx" path="res://assets/shaders/tornado.gdshader" id="4_xfb2l"]
+[ext_resource type="Script" uid="uid://bu8mslqpeetn1" path="res://experimentation/tornado.gd" id="5_1iko2"]
 
 [sub_resource type="PrismMesh" id="PrismMesh_118q5"]
 left_to_right = 1.0
@@ -22,10 +25,90 @@ height = 4.0
 height = 4.0
 radius = 1.0
 
-[node name="Main" type="Node3D" unique_id=874038051]
+[sub_resource type="Curve" id="Curve_mbxx7"]
+_limits = [-0.5, 0.5, 0.0, 0.90000004]
+_data = [Vector2(0, -0.5), 0.0, 0.0, 0, 0, Vector2(0.63, 7.450581e-09), 0.0, 0.0, 0, 0, Vector2(0.90000004, -0.5), 0.0, 0.0, 0, 0]
+point_count = 3
+metadata/_snap_enabled = true
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=795350801]
-transform = Transform3D(1, 0, 0, 0, 0.9659258, 0.25881904, 0, -0.25881904, 0.9659258, 0, 9, 0)
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_1iko2"]
+noise_type = 2
+frequency = 0.0275
+fractal_type = 0
+cellular_return_type = 5
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_mbxx7"]
+width = 64
+noise = SubResource("FastNoiseLite_1iko2")
+seamless = true
+seamless_blend_skirt = 1.0
+
+[sub_resource type="Gradient" id="Gradient_mbxx7"]
+offsets = PackedFloat32Array(0, 0.13716814)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_868wt"]
+noise_type = 2
+frequency = 0.0585
+fractal_type = 0
+cellular_distance_function = 1
+cellular_jitter = 2.115
+cellular_return_type = 5
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_e76yu"]
+width = 129
+noise = SubResource("FastNoiseLite_868wt")
+color_ramp = SubResource("Gradient_mbxx7")
+seamless = true
+in_3d_space = true
+seamless_blend_skirt = 1.0
+
+[sub_resource type="Gradient" id="Gradient_bshrh"]
+offsets = PackedFloat32Array(0.2300885, 0.6946903)
+colors = PackedColorArray(0.027199699, 0.43085814, 0.53152835, 1, 0.94400555, 2.3530843, 2.4569426, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_868wt"]
+gradient = SubResource("Gradient_bshrh")
+width = 262
+use_hdr = true
+
+[sub_resource type="Curve" id="Curve_e76yu"]
+_limits = [-1.0, 1.0, 0.0, 1.0]
+_data = [Vector2(0, 1.4901161e-08), 0.0, 0.0, 0, 0, Vector2(0.2, -0.19999999), 0.0, 0.0, 0, 0, Vector2(0.4, 1.4901161e-08), 0.0, 0.0, 0, 0, Vector2(0.7, 0.20000002), 0.0, 0.0, 0, 0, Vector2(0.90000004, 1.4901161e-08), 0.0, 0.0, 0, 0]
+point_count = 5
+metadata/_snap_enabled = true
+
+[sub_resource type="Curve" id="Curve_6me36"]
+_limits = [-1.0, 1.0, 0.0, 1.0]
+_data = [Vector2(0, 1.4901161e-08), 0.0, 0.0, 0, 0, Vector2(0.3, -0.19999999), 0.0, 0.0, 0, 0, Vector2(0.6, 1.4901161e-08), 0.0, 0.0, 0, 0, Vector2(0.8, -0.39999998), 0.0, 0.0, 0, 0, Vector2(1, 1.4901161e-08), 0.0, 0.0, 0, 0]
+point_count = 5
+metadata/_snap_enabled = true
+
+[sub_resource type="CurveXYZTexture" id="CurveXYZTexture_mbxx7"]
+curve_x = SubResource("Curve_e76yu")
+curve_z = SubResource("Curve_6me36")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2pxlg"]
+render_priority = 0
+shader = ExtResource("4_xfb2l")
+shader_parameter/shape_curve = SubResource("CurveXYZTexture_mbxx7")
+shader_parameter/b_alpha = -0.5
+shader_parameter/alpha_cut = SubResource("NoiseTexture2D_e76yu")
+shader_parameter/albedo_texture = SubResource("NoiseTexture2D_mbxx7")
+shader_parameter/color = SubResource("GradientTexture1D_868wt")
+shader_parameter/cut_rotation = 2.000000095
+shader_parameter/tex_rotation = 4.00000019
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_akcnx"]
+material = SubResource("ShaderMaterial_2pxlg")
+flip_faces = true
+top_radius = 2.0
+height = 5.0
+radial_segments = 32
+rings = 8
+cap_top = false
+cap_bottom = false
+
+[node name="Main" type="Node3D" unique_id=874038051]
 
 [node name="Environment" type="Node3D" parent="." unique_id=1797193974]
 
@@ -53,8 +136,20 @@ shape = SubResource("CylinderShape3D_5xivh")
 
 [node name="MainUI" parent="." unique_id=852991961 instance=ExtResource("2_118q5")]
 
-[node name="DangerAreaSpawner" type="Node3D" parent="." unique_id=1866837804]
-script = ExtResource("3_118q5")
+[node name="TornadoAttack" type="Node3D" parent="." unique_id=1965488492]
+script = ExtResource("3_mbxx7")
+alpha_curve = SubResource("Curve_mbxx7")
+delay_fire = 0.5
 
-[node name="BulletSpawner" type="Node3D" parent="." unique_id=35072232]
+[node name="BulletSpawner" type="Node3D" parent="TornadoAttack" unique_id=35072232]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 3.4615245, 0)
 script = ExtResource("4_akcnx")
+bullet_scene = ExtResource("3_akcnx")
+fire_velocity = 5.0
+fire_velocity_ramp = 0.2
+
+[node name="Tornado" type="MeshInstance3D" parent="TornadoAttack" unique_id=145463188]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 3.4615245, 0)
+mesh = SubResource("CylinderMesh_akcnx")
+script = ExtResource("5_1iko2")
+rotation_speed = 2.0
